@@ -1,29 +1,30 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "phoenix-core",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Phoenix core",
+  "description": "Phoenix core",
   "authors": [
-    "Me!"
+    "Redsarow"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/redsarow/PhoenixCore",
+    "sources": "https://github.com/redsarow/PhoenixCore",
+    "issues": "https://github.com/redsarow/PhoenixCore/issues"
   },
 
-  "license": "CC0-1.0",
+  "license": "MIT",
   "icon": "assets/modid/icon.png",
 
-  "environment": "*",
+  "environment": "server",
   "entrypoints": {
-    "main": [
-      "net.fabricmc.example.ExampleMod"
+    "server": [
+      "fr.redsarow.phoenixCore.Main"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "phoenix-core.mixins.json"
   ],
 
   "depends": {
