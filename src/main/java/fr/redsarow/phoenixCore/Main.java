@@ -1,5 +1,8 @@
 package fr.redsarow.phoenixCore;
 
+import fr.redsarow.phoenixCore.minecraft.config.ConfigManager;
+import fr.redsarow.phoenixCore.minecraft.config.MainConf;
+import fr.redsarow.phoenixCore.minecraft.util.ModUtils;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.server.MinecraftServer;
@@ -13,16 +16,20 @@ public class Main implements DedicatedServerModInitializer {
 
     public static final String MOD_ID = "phoenix-core";
     private static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+    public static MainConf conf;
+
+    public static Logger getLogger(String className) {
+        String suffix = ModUtils.isEmpty(className) ? "" : " - " + className;
+        return LogManager.getLogger(MOD_ID + suffix);
+    }
 
     @Override
     public void onInitializeServer() {
-        System.out.println("Hello Fabric world!");
+        conf = ConfigManager.getInstance().iniConfig("config.json", MainConf.class);
 
-        // TODO init config
         ServerLifecycleEvents.SERVER_STARTED.register(this::onServerStarted);
         ServerLifecycleEvents.SERVER_STOPPING.register(this::onServerStoping);
     }
-
 
     private void onServerStarted(MinecraftServer server) {
 
