@@ -1,5 +1,6 @@
 package fr.redsarow.phoenixCore;
 
+import fr.redsarow.phoenixCore.discord.Bot;
 import fr.redsarow.phoenixCore.minecraft.config.ConfigManager;
 import fr.redsarow.phoenixCore.minecraft.config.MainConf;
 import fr.redsarow.phoenixCore.minecraft.util.ModUtils;
@@ -29,12 +30,17 @@ public class Main implements DedicatedServerModInitializer {
 
         ServerLifecycleEvents.SERVER_STARTED.register(this::onServerStarted);
         ServerLifecycleEvents.SERVER_STOPPING.register(this::onServerStoping);
+
+        if(conf.discord){
+            Bot.getInstance();
+        }
     }
 
     private void onServerStarted(MinecraftServer server) {
-
+        // TODO status discod serveur OK
     }
 
     private void onServerStoping(MinecraftServer server) {
+        // TODO off bot
     }
 }
