@@ -22,8 +22,8 @@ import java.util.List;
  */
 public class Bot {
 
+    private static final Logger LOGGER = Main.getLogger(Bot.class.getName());
     private static Bot INSTANCE;
-    private static Logger LOGGER = Main.getLogger(Bot.class.getName());
 
     public final String prefix;
     public final List<String> roles;
@@ -69,11 +69,16 @@ public class Bot {
         return INSTANCE;
     }
 
+    public static Bot initBot() {
+        LOGGER.info("Init discord bot");
+        return getInstance();
+    }
+
     private void createClient(String token) {
         client = DiscordClientBuilder.create(token)
                 .build()
                 .gateway()
-                .setInitialStatus(s -> Presence.doNotDisturb(Activity.playing("Init ...")))
+                .setInitialStatus(s -> Presence.doNotDisturb(Activity.playing("Serveur starting ...")))
                 .login()
                 .block();
     }

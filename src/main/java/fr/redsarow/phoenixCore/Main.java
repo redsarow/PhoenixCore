@@ -32,7 +32,7 @@ public class Main implements DedicatedServerModInitializer {
         ServerLifecycleEvents.SERVER_STOPPING.register(this::onServerStoping);
 
         if(conf.discord){
-            Bot.getInstance();
+            Bot.initBot();
         }
     }
 
