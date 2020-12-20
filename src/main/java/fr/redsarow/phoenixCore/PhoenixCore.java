@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * @author redsarow
  */
-public class Main implements DedicatedServerModInitializer {
+public class PhoenixCore implements DedicatedServerModInitializer {
 
     public static final String MOD_ID = "phoenix-core";
     private static final Logger LOGGER = LogManager.getLogger(MOD_ID);

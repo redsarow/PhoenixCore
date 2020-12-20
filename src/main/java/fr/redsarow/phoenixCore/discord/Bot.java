@@ -9,7 +9,7 @@ import discord4j.core.object.entity.channel.Channel;
 import discord4j.core.object.entity.channel.GuildChannel;
 import discord4j.core.object.presence.Activity;
 import discord4j.core.object.presence.Presence;
-import fr.redsarow.phoenixCore.Main;
+import fr.redsarow.phoenixCore.PhoenixCore;
 import fr.redsarow.phoenixCore.discord.commands.*;
 import org.apache.logging.log4j.Logger;
 import reactor.core.publisher.Mono;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Bot {
 
-    private static final Logger LOGGER = Main.getLogger(Bot.class.getName());
+    private static final Logger LOGGER = PhoenixCore.getLogger(Bot.class.getName());
     private static Bot INSTANCE;
 
     public final String prefix;
@@ -34,10 +34,10 @@ public class Bot {
 
     private Bot() {
 
-        prefix = Main.conf.prefix;
-        roles = Main.conf.roles;
+        prefix = PhoenixCore.conf.prefix;
+        roles = PhoenixCore.conf.roles;
 
-        createClient(Main.conf.token);
+        createClient(PhoenixCore.conf.token);
 
         // events
         EventDispatcher dispatcher = client.getEventDispatcher();
@@ -98,7 +98,7 @@ public class Bot {
                 .collectList()
                 .block();
 
-        List<String> stringChannels = Main.conf.channelIn;
+        List<String> stringChannels = PhoenixCore.conf.channelIn;
 
         channelIn = stringChannels.stream().collect(
                 ArrayList<Channel>::new
@@ -106,7 +106,7 @@ public class Bot {
                 , ArrayList::addAll
         );
 
-        String stringChannel = Main.conf.channelOut;
+        String stringChannel = PhoenixCore.conf.channelOut;
         channelOut = channels.stream().filter(channel -> channel.getName().equalsIgnoreCase(stringChannel)).findFirst().get();
 
         LOGGER.info("Bot is now ready!");

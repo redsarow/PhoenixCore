@@ -20,7 +20,7 @@
   "environment": "server",
   "entrypoints": {
     "server": [
-      "fr.redsarow.phoenixCore.Main"
+      "fr.redsarow.phoenixCore.PhoenixCore"
     ]
   },
   "mixins": [
