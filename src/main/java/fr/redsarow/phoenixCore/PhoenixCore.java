@@ -23,7 +23,7 @@ public class PhoenixCore implements DedicatedServerModInitializer {
     private MinecraftServer server;
 
     public static Logger getLogger(String className) {
-        String suffix = ModUtils.isEmpty(className) ? "" : " - " + className;
+        String suffix = ModUtils.isEmpty(className) ? "" : "|" + className;
         return LogManager.getLogger(MOD_ID + suffix);
     }
 

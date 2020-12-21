@@ -23,7 +23,7 @@ import java.nio.file.Paths;
 public class ConfigManager {
 
     private static final Path MOD_CONFIG_DIR = Paths.get(FabricLoader.getInstance().getConfigDir().toString(), PhoenixCore.MOD_ID);
-    private static final Gson GSON = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+    private static final Gson GSON = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().setPrettyPrinting().create();
     private static final Logger LOGGER = PhoenixCore.getLogger(ConfigManager.class.getName());
     private static ConfigManager instance = null;
 
@@ -79,7 +79,7 @@ public class ConfigManager {
 
     public void writeConfig(AConfigFile configFile) {
         try (FileWriter writer = new FileWriter(configFile.file)) {
-            writer.write(GSON.toJson(configFile));
+            GSON.toJson(configFile, writer);
         } catch (IOException e) {
             LOGGER.error("error write conf " + configFile, e);
         }
