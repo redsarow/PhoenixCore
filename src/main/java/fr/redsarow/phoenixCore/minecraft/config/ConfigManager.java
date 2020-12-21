@@ -50,11 +50,13 @@ public class ConfigManager {
         if (file.exists()) {
             configFile = this.readConfig(file, clazz);
         }else {
+            // set default config
+            LOGGER.info("Init def conf for : " + fileName);
             try {
                 configFile = clazz.getDeclaredConstructor(File.class).newInstance(file);
                 writeConfig(configFile);
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                e.printStackTrace();
+                LOGGER.error("error init def conf " + fileName, e);
             }
         }
         return clazz.cast(configFile);
@@ -66,7 +68,7 @@ public class ConfigManager {
             configFile = GSON.fromJson(reader, clazz);
             configFile.file = file;
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("error read conf " + file.getName(), e);
         }
         return clazz.cast(configFile);
     }
@@ -79,7 +81,7 @@ public class ConfigManager {
         try (FileWriter writer = new FileWriter(configFile.file)) {
             writer.write(GSON.toJson(configFile));
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("error write conf " + configFile, e);
         }
     }
 }

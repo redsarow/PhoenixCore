@@ -12,9 +12,6 @@ import java.util.ArrayList;
 public class MainConf extends AConfigFile {
 
     @Since(1.0)
-    public double version = 1.0;
-
-    @Since(1.0)
     public Boolean discord = false;
 
     @Since(1.0)
@@ -35,6 +32,7 @@ public class MainConf extends AConfigFile {
     public String channelOut = "bot";
 
     public MainConf(File file) {
-        super(file);
+        super(file, 1.0);
     }
+
 }
