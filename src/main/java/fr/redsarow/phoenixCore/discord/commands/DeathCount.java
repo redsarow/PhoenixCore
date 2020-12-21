@@ -2,36 +2,42 @@ package fr.redsarow.phoenixCore.discord.commands;
 
 import discord4j.core.object.entity.Message;
 import discord4j.rest.util.Color;
+import fr.redsarow.phoenixCore.PhoenixCore;
 import fr.redsarow.phoenixCore.discord.Bot;
 
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author redsarow
  */
 public class DeathCount extends ACommand {
 
-    public DeathCount() {
+    private PhoenixCore phoenixCore;
+
+    public DeathCount(PhoenixCore phoenixCore) {
         super("DeathCount", "Commande DeathCount", Bot.getInstance().prefix + "DeathCount", null, "dc");
+        this.phoenixCore = phoenixCore;
     }
 
     @Override
     public boolean run(Message message) {
-        Map<String, Integer> allDeath = bot.getPlugin().getPlayerDeathCount();
+        Map<String, Integer> allDeath = this.phoenixCore.getPlayerDeathCount();
         StringBuilder names = new StringBuilder();
         StringBuilder death = new StringBuilder();
-        allDeath.forEach((s, integer) -> {
-            names.append(Bukkit.getOfflinePlayer(UUID.fromString(s)).getName()).append("\n");
-            death.append(integer).append("\n");
+        allDeath.forEach((name, nb) -> {
+            names.append(name).append("\n");
+            death.append(nb).append("\n");
         });
 
-        message.getChannel().block().createEmbed(embed ->
-                embed.setTitle(":skull: Tableau des morts :skull:")
-                        .setColor(Color.BLACK)
-                        .addField("Nom", names.toString().equals("") ? "N/C" : names.toString(), true)
-                        .addField("Mort(s)", death.toString().equals("") ? "N/C" : death.toString(), true)
-        ).block();
+        message.getChannel()
+                .block()
+                .createEmbed(embed ->
+                        embed.setTitle(":skull: Tableau des morts :skull:")
+                                .setColor(Color.BLACK)
+                                .addField("Nom", names.toString().equals("") ? "N/C" : names.toString(), true)
+                                .addField("Mort(s)", death.toString().equals("") ? "N/C" : death.toString(), true)
+                )
+                .block();
 
         return true;
     }

@@ -32,13 +32,13 @@ public class Bot {
     private Channel channelOut;
     private List<Channel> channelIn;
 
-    private Bot() {
-
-        prefix = PhoenixCore.conf.prefix;
-        roles = PhoenixCore.conf.roles;
+    private Bot(PhoenixCore phoenixCore) {
+        this.prefix = PhoenixCore.conf.prefix;
+        this.roles = PhoenixCore.conf.roles;
 
         createClient(PhoenixCore.conf.token);
 
+        // -------
         // events
         EventDispatcher dispatcher = client.getEventDispatcher();
         // commands
@@ -53,24 +53,23 @@ public class Bot {
         dispatcher.on(ReadyEvent.class)
                 .subscribe(this::onReady);
 
+        // -------
         // commands register
         new Info();
         new Help();
-        new DeathCount();
+        new DeathCount(phoenixCore);
         new Grant();
 
         sendMsg = new SendDiscordMsg();
     }
 
     public static Bot getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new Bot();
-        }
         return INSTANCE;
     }
 
-    public static Bot initBot() {
+    public static Bot initBot(PhoenixCore phoenixCore) {
         LOGGER.info("Init discord bot");
+        INSTANCE = new Bot(phoenixCore);
         return getInstance();
     }
 
@@ -101,7 +100,7 @@ public class Bot {
         List<String> stringChannels = PhoenixCore.conf.channelIn;
 
         channelIn = stringChannels.stream().collect(
-                ArrayList<Channel>::new
+                ArrayList::new
                 , (channels1, s) -> channels1.add(channels.stream().filter(channel -> channel.getName().equalsIgnoreCase(s)).findFirst().get())
                 , ArrayList::addAll
         );
