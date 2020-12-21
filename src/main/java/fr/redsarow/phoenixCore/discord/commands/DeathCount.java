@@ -4,6 +4,7 @@ import discord4j.core.object.entity.Message;
 import discord4j.rest.util.Color;
 import fr.redsarow.phoenixCore.PhoenixCore;
 import fr.redsarow.phoenixCore.discord.Bot;
+import fr.redsarow.phoenixCore.minecraft.ScoreboardManager;
 
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public class DeathCount extends ACommand {
 
     @Override
     public boolean run(Message message) {
-        Map<String, Integer> allDeath = this.phoenixCore.getPlayerDeathCount();
+        Map<String, Integer> allDeath = ScoreboardManager.getInstance().getPlayerDeathCount();
         StringBuilder names = new StringBuilder();
         StringBuilder death = new StringBuilder();
         allDeath.forEach((name, nb) -> {
