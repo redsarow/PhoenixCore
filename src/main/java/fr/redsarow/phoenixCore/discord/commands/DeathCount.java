@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class DeathCount extends ACommand {
 
-    private PhoenixCore phoenixCore;
+    private final PhoenixCore phoenixCore;
 
     public DeathCount(PhoenixCore phoenixCore) {
         super("DeathCount", "Commande DeathCount", Bot.getInstance().prefix + "DeathCount", null, "dc");

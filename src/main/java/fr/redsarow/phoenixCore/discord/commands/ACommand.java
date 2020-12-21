@@ -12,10 +12,10 @@ import java.util.List;
 public abstract class ACommand {
 
     private final String name;
-    private String description;
-    private String usage;
-    private List<String> exemple;
-    private String alias;
+    private final String description;
+    private final String usage;
+    private final List<String> exemple;
+    private final String alias;
 
     public ACommand(String name, String description, String usage, List<String> exemple, String... alias) {
         this.name = name;

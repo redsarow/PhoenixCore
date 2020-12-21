@@ -16,7 +16,7 @@ public abstract class AConfigFile {
         this.file = file;
     }
 
-    public void save(){
+    public void save() {
         ConfigManager.getInstance().writeConfig(this);
     }
 }
