@@ -40,8 +40,12 @@ public class PhoenixCore implements DedicatedServerModInitializer {
 
     @Override
     public void onInitializeServer() {
+        // init main conf
+        LOGGER.info("init conf");
         conf = ConfigManager.getInstance().iniConfig("config.json", MainConf.class);
 
+        // Events server
+        ServerLifecycleEvents.SERVER_STARTING.register(this::onServerStarting);
         ServerLifecycleEvents.SERVER_STARTED.register(this::onServerStarted);
         ServerLifecycleEvents.SERVER_STOPPING.register(this::onServerStoping);
 
@@ -50,14 +54,21 @@ public class PhoenixCore implements DedicatedServerModInitializer {
         }
     }
 
-    private void onServerStarted(MinecraftServer server) {
+    private void onServerStarting(MinecraftServer server) {
         this.server = server;
         this.initScoreboard();
-        // TODO status discod serveur OK
+    }
+
+    private void onServerStarted(MinecraftServer server) {
+        if (conf.discord) {
+            Bot.getInstance().serverStatus(0);
+        }
     }
 
     private void onServerStoping(MinecraftServer server) {
-        // TODO off bot
+        if (conf.discord) {
+            Bot.getInstance().disconnect();
+        }
     }
 
     private void initScoreboard() {

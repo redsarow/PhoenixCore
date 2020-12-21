@@ -12,7 +12,6 @@ import discord4j.core.object.presence.Presence;
 import fr.redsarow.phoenixCore.PhoenixCore;
 import fr.redsarow.phoenixCore.discord.commands.*;
 import org.apache.logging.log4j.Logger;
-import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,7 @@ public class Bot {
         // -------
         // events
         EventDispatcher dispatcher = client.getEventDispatcher();
-        // commands
+        // commands trigger
         dispatcher.on(MessageCreateEvent.class)
                 .map(MessageCreateEvent::getMessage)
                 .filter(msg -> msg.getAuthor().map(user -> !user.isBot()).orElse(false))
@@ -87,7 +86,7 @@ public class Bot {
         client.onDisconnect().subscribe();
     }
 
-    private Mono<Void> onReady(ReadyEvent event) {
+    private void onReady(ReadyEvent event) {
 
         List<GuildChannel> channels = client.getGuilds()
                 .toStream()
@@ -110,9 +109,11 @@ public class Bot {
 
         LOGGER.info("Bot is now ready!");
         // set status
-        client.updatePresence(Presence.online(Activity.playing(prefix + "help"))).block();
+        client.updatePresence(Presence.doNotDisturb(Activity.playing("Serveur starting, Bot ready"))).block();
+    }
 
-        return Mono.empty().then();
+    public void serverStatus(int nbPlayers) {
+        client.updatePresence(Presence.online(Activity.playing(nbPlayers + " - " + prefix + "help"))).block();
     }
 
     public GatewayDiscordClient getClient() {
