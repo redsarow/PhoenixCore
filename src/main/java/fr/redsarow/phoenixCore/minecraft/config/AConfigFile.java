@@ -14,7 +14,7 @@ import java.io.File;
 public abstract class AConfigFile {
 
     @Expose(serialize = false, deserialize = false)
-    private double actualVersion;
+    private final double actualVersion;
 
     @Expose
     public double version;
