@@ -34,6 +34,9 @@ public class WorldGroup extends AConfigFile {
         defGroup.worldsTeam.put("world_nether", null);
         defGroup.worldsTeam.put("world_the_end", null);
         defGroup.defaultTeam = PhoenixCore.getInstance().getServer().getScoreboard().getTeam("Survie");
+        if(defGroup.defaultTeam == null){
+            defGroup.defaultTeam = PhoenixCore.getInstance().getServer().getScoreboard().addTeam("Survie");
+        }
         defGroup.defaultTeam.setColor(Formatting.GREEN);
 
         groupMap = new HashMap<>();

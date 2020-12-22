@@ -30,7 +30,7 @@ public class WorldGroupAdapter extends TypeAdapter<Map<String, WorldGroup.Group>
         for (String name : groupMap.keySet()) {
             WorldGroup.Group group = groupMap.get(name);
 
-            out.name(name).beginObject();
+            out.beginObject().name(name).beginObject();
 
             out.name("worldsTeam")
                     .beginArray();
@@ -38,12 +38,14 @@ public class WorldGroupAdapter extends TypeAdapter<Map<String, WorldGroup.Group>
                 Team itTeam = group.worldsTeam.get(itWorldName);
                 out.beginObject()
                         .name(itWorldName)
-                        .beginObject()
-                        .name("color")
-                        .value(itTeam.getColor().getName())
-                        .name("prefix")
-                        .value(itTeam.getPrefix().getString())
-                        .endObject()
+                        .beginObject();
+                if(itTeam != null){
+                    out.name("color")
+                            .value(itTeam.getColor().getName())
+                            .name("prefix")
+                            .value(itTeam.getPrefix().getString());
+                }
+                out.endObject()
                         .endObject();
             }
             out.endArray();
@@ -62,8 +64,7 @@ public class WorldGroupAdapter extends TypeAdapter<Map<String, WorldGroup.Group>
             out.name("gameMode")
                     .value(group.gameMode.getName());
 
-            // TODO
-            out.endObject();
+            out.endObject().endObject();
         }
         out.endArray();
     }

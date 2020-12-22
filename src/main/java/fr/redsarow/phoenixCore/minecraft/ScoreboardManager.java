@@ -44,6 +44,7 @@ public class ScoreboardManager {
             TranslatableText objectiveVieName = new TranslatableText("objective.phoenix-core.vie");
             this.objectiveHealth = this.server.getScoreboard().addObjective("Vie", ScoreboardCriterion.HEALTH, objectiveVieName, ScoreboardCriterion.RenderType.HEARTS);
             this.objectiveHealth.setDisplayName(new LiteralText(Formatting.GREEN.toString()).append(objectiveVieName));
+            this.server.getScoreboard().setObjectiveSlot(Scoreboard.getDisplaySlotId("list"), this.objectiveHealth);
         }
 
         this.objectiveDeath = this.server.getScoreboard().getObjective("Mort");
@@ -51,12 +52,8 @@ public class ScoreboardManager {
             TranslatableText objectiveMortName = new TranslatableText("objective.phoenix-core.mort");
             this.objectiveDeath = this.server.getScoreboard().addObjective("Mort", ScoreboardCriterion.DEATH_COUNT, objectiveMortName, ScoreboardCriterion.RenderType.INTEGER);
             this.objectiveDeath.setDisplayName(new LiteralText(Formatting.RED.toString()).append(objectiveMortName));
+            this.server.getScoreboard().setObjectiveSlot(Scoreboard.getDisplaySlotId("sidebar"), this.objectiveDeath);
         }
-    }
-
-    public void setSlot(){
-        this.server.getScoreboard().setObjectiveSlot(Scoreboard.getDisplaySlotId("list"), this.objectiveHealth);
-        this.server.getScoreboard().setObjectiveSlot(Scoreboard.getDisplaySlotId("sidebar"), this.objectiveDeath);
     }
 
     public Map<String, Integer> getPlayerDeathCount() {

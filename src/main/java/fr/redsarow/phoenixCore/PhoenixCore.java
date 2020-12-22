@@ -54,15 +54,14 @@ public class PhoenixCore implements DedicatedServerModInitializer {
 
     private void onServerStarting(MinecraftServer server) {
         this.server = server;
+    }
+
+    private void onServerStarted(MinecraftServer server) {
+        ScoreboardManager.init(server);
 
         LOGGER.info("init worldGroup conf");
         ConfigManager.getInstance().iniConfig("worldGroup.json", WorldGroup.class);
 
-        ScoreboardManager.init(server);
-    }
-
-    private void onServerStarted(MinecraftServer server) {
-        ScoreboardManager.getInstance().setSlot();
         if (conf.discord) {
             Bot.getInstance().serverStatus(0);
         }
