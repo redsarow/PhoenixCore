@@ -3,7 +3,7 @@ package fr.redsarow.phoenixCore;
 import fr.redsarow.phoenixCore.discord.Bot;
 import fr.redsarow.phoenixCore.minecraft.ScoreboardManager;
 import fr.redsarow.phoenixCore.minecraft.config.ConfigManager;
-import fr.redsarow.phoenixCore.minecraft.config.MainConf;
+import fr.redsarow.phoenixCore.minecraft.config.configFiles.MainConf;
 import fr.redsarow.phoenixCore.minecraft.util.ModUtils;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;

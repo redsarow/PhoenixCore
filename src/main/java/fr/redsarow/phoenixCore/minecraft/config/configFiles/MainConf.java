@@ -1,8 +1,9 @@
-package fr.redsarow.phoenixCore.minecraft.config;
+package fr.redsarow.phoenixCore.minecraft.config.configFiles;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.annotations.Since;
+import fr.redsarow.phoenixCore.minecraft.config.AConfigFile;
 
 import java.io.File;
 import java.util.ArrayList;
