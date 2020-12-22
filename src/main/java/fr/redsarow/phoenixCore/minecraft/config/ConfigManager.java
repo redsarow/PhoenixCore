@@ -24,7 +24,7 @@ public class ConfigManager {
 
     private static final Path MOD_CONFIG_DIR = Paths.get(FabricLoader.getInstance().getConfigDir().toString(), PhoenixCore.MOD_ID);
     private static final Gson GSON = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().setPrettyPrinting().create();
-    private static final Logger LOGGER = PhoenixCore.getLogger(ConfigManager.class.getName());
+    private static final Logger LOGGER = PhoenixCore.getLogger(ConfigManager.class.getSimpleName());
     private static ConfigManager instance = null;
 
     private ConfigManager() {

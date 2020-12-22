@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Bot {
 
-    private static final Logger LOGGER = PhoenixCore.getLogger(Bot.class.getName());
+    private static final Logger LOGGER = PhoenixCore.getLogger(Bot.class.getSimpleName());
     private static Bot INSTANCE;
 
     public final String prefix;
@@ -32,10 +32,10 @@ public class Bot {
     private List<Channel> channelIn;
 
     private Bot(PhoenixCore phoenixCore) {
-        this.prefix = PhoenixCore.conf.prefix;
-        this.roles = PhoenixCore.conf.roles;
+        this.prefix = PhoenixCore.getInstance().conf.prefix;
+        this.roles = PhoenixCore.getInstance().conf.roles;
 
-        createClient(PhoenixCore.conf.token);
+        createClient(PhoenixCore.getInstance().conf.token);
 
         // -------
         // events
@@ -96,7 +96,7 @@ public class Bot {
                 .collectList()
                 .block();
 
-        List<String> stringChannels = PhoenixCore.conf.channelIn;
+        List<String> stringChannels = PhoenixCore.getInstance().conf.channelIn;
 
         channelIn = stringChannels.stream().collect(
                 ArrayList::new
@@ -104,7 +104,7 @@ public class Bot {
                 , ArrayList::addAll
         );
 
-        String stringChannel = PhoenixCore.conf.channelOut;
+        String stringChannel = PhoenixCore.getInstance().conf.channelOut;
         channelOut = channels.stream().filter(channel -> channel.getName().equalsIgnoreCase(stringChannel)).findFirst().get();
 
         LOGGER.info("Bot is now ready!");

@@ -17,20 +17,28 @@ import org.apache.logging.log4j.Logger;
 public class PhoenixCore implements DedicatedServerModInitializer {
 
     public static final String MOD_ID = "phoenix-core";
-    private static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-    public static MainConf conf;
+    public static final String MOD_PREFIX = "PC";
+    private static final Logger LOGGER = LogManager.getLogger(MOD_PREFIX);
+    private static PhoenixCore INSTANCE;
 
+    public MainConf conf;
     private MinecraftServer server;
 
     public static Logger getLogger(String className) {
         String suffix = ModUtils.isEmpty(className) ? "" : "|" + className;
-        return LogManager.getLogger(MOD_ID + suffix);
+        return LogManager.getLogger(MOD_PREFIX + suffix);
+    }
+
+    public static PhoenixCore getInstance() {
+        return INSTANCE;
     }
 
     @Override
     public void onInitializeServer() {
+        INSTANCE = this;
+
         // init main conf
-        LOGGER.info("init conf");
+        LOGGER.info("init main conf");
         conf = ConfigManager.getInstance().iniConfig("config.json", MainConf.class);
 
         // Events server
@@ -59,5 +67,9 @@ public class PhoenixCore implements DedicatedServerModInitializer {
         if (conf.discord) {
             Bot.getInstance().disconnect();
         }
+    }
+
+    public MinecraftServer getServer() {
+        return server;
     }
 }
