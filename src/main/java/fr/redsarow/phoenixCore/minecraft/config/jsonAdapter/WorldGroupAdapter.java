@@ -97,6 +97,7 @@ public class WorldGroupAdapter extends TypeAdapter<WorldGroup> {
             in.beginObject();
 
             WorldGroup.Group group = new WorldGroup.Group();
+            group.name = groupName;
 
             while (in.hasNext()) { // loop group config
                 switch (in.nextName()) {

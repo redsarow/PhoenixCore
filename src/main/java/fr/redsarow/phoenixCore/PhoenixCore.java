@@ -2,9 +2,9 @@ package fr.redsarow.phoenixCore;
 
 import fr.redsarow.phoenixCore.discord.Bot;
 import fr.redsarow.phoenixCore.minecraft.ScoreboardManager;
+import fr.redsarow.phoenixCore.minecraft.WorldGroupManager;
 import fr.redsarow.phoenixCore.minecraft.config.ConfigManager;
 import fr.redsarow.phoenixCore.minecraft.config.configFiles.MainConf;
-import fr.redsarow.phoenixCore.minecraft.config.configFiles.WorldGroup;
 import fr.redsarow.phoenixCore.minecraft.events.Join;
 import fr.redsarow.phoenixCore.minecraft.util.ModUtils;
 import net.fabricmc.api.DedicatedServerModInitializer;
@@ -62,8 +62,9 @@ public class PhoenixCore implements DedicatedServerModInitializer {
 
         ScoreboardManager.init(server);
 
+        // Init conf
         LOGGER.info("init worldGroup conf");
-        ConfigManager.getInstance().iniConfig("worldGroup.json", WorldGroup.class);
+        WorldGroupManager.getInstance();
 
         if (conf.discord) {
             Bot.getInstance().serverStatus(0);

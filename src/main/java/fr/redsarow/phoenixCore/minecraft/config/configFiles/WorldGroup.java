@@ -29,6 +29,7 @@ public class WorldGroup extends AConfigFile {
 
         //default Conf
         Group defGroup = new Group();
+        defGroup.name = "Survie";
         defGroup.worldsTeam = new HashMap<>();
         defGroup.worldsTeam.put("world", null);
         defGroup.worldsTeam.put("world_nether", null);
@@ -39,7 +40,7 @@ public class WorldGroup extends AConfigFile {
         }
         defGroup.defaultTeam.setColor(Formatting.GREEN);
 
-        groupMap.put("Survie", defGroup);
+        groupMap.put(defGroup.name, defGroup);
     }
 
     public WorldGroup() {
@@ -47,6 +48,8 @@ public class WorldGroup extends AConfigFile {
     }
 
     public static class Group {
+
+        public String name;
 
         /**
          * Lis of worlds and potential Team
@@ -58,5 +61,10 @@ public class WorldGroup extends AConfigFile {
         public boolean deadCount = true;
 
         public GameMode gameMode = GameMode.SURVIVAL;
+
+        public Team getTeamForWorld(String worldName) {
+            Team team = worldsTeam.get(worldName);
+            return team != null ? team : defaultTeam;
+        }
     }
 }
