@@ -17,12 +17,12 @@ import java.util.Map;
 /**
  * @author redsarow
  */
+@JsonAdapter(WorldGroupAdapter.class)
 public class WorldGroup extends AConfigFile {
 
     @Since(1.0)
     @Expose
-    @JsonAdapter(WorldGroupAdapter.class)
-    public Map<String, Group> groupMap;
+    public Map<String, Group> groupMap = new HashMap<>();
 
     public WorldGroup(File file) {
         super(file, 1.0);
@@ -34,23 +34,26 @@ public class WorldGroup extends AConfigFile {
         defGroup.worldsTeam.put("world_nether", null);
         defGroup.worldsTeam.put("world_the_end", null);
         defGroup.defaultTeam = PhoenixCore.getInstance().getServer().getScoreboard().getTeam("Survie");
-        if(defGroup.defaultTeam == null){
+        if (defGroup.defaultTeam == null) {
             defGroup.defaultTeam = PhoenixCore.getInstance().getServer().getScoreboard().addTeam("Survie");
         }
         defGroup.defaultTeam.setColor(Formatting.GREEN);
 
-        groupMap = new HashMap<>();
         groupMap.put("Survie", defGroup);
     }
 
-    public class Group {
+    public WorldGroup() {
+        this(null);
+    }
+
+    public static class Group {
 
         /**
          * Lis of worlds and potential Team
          */
-        public Map<String, Team> worldsTeam;
+        public Map<String, Team> worldsTeam = new HashMap<>();
 
-        public Team defaultTeam;
+        public Team defaultTeam = null;
 
         public boolean deadCount = true;
 
