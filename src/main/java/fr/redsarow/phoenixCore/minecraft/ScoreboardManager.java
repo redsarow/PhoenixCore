@@ -5,7 +5,7 @@ import net.minecraft.scoreboard.ScoreboardCriterion;
 import net.minecraft.scoreboard.ScoreboardObjective;
 import net.minecraft.scoreboard.ScoreboardPlayerScore;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 
 import java.util.Collection;
@@ -40,7 +40,7 @@ public class ScoreboardManager {
 
     private void initScoreboard() {
         if (this.server.getScoreboard().getObjective("Vie") == null) {
-            TranslatableText objectiveVieName = new TranslatableText("objective.phoenix-core.vie");
+            LiteralText objectiveVieName = new LiteralText("Vie");
             this.objectiveHealth = this.server.getScoreboard().addObjective("Vie", ScoreboardCriterion.HEALTH, objectiveVieName, ScoreboardCriterion.RenderType.HEARTS);
             this.objectiveHealth.setDisplayName(objectiveVieName.formatted(Formatting.GREEN));
             this.server.getScoreboard().setObjectiveSlot(Scoreboard.getDisplaySlotId("list"), this.objectiveHealth);
@@ -48,7 +48,7 @@ public class ScoreboardManager {
 
         this.objectiveDeath = this.server.getScoreboard().getObjective("Mort");
         if (objectiveDeath == null) {
-            TranslatableText objectiveMortName = new TranslatableText("objective.phoenix-core.mort");
+            LiteralText objectiveMortName = new LiteralText("Mort");
             this.objectiveDeath = this.server.getScoreboard().addObjective("Mort", ScoreboardCriterion.DEATH_COUNT, objectiveMortName, ScoreboardCriterion.RenderType.INTEGER);
             this.objectiveDeath.setDisplayName(objectiveMortName.formatted(Formatting.RED));
             this.server.getScoreboard().setObjectiveSlot(Scoreboard.getDisplaySlotId("sidebar"), this.objectiveDeath);
