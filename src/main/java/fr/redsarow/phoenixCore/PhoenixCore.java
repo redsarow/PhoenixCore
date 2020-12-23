@@ -6,6 +6,7 @@ import fr.redsarow.phoenixCore.minecraft.WorldGroupManager;
 import fr.redsarow.phoenixCore.minecraft.config.ConfigManager;
 import fr.redsarow.phoenixCore.minecraft.config.configFiles.MainConf;
 import fr.redsarow.phoenixCore.minecraft.events.Join;
+import fr.redsarow.phoenixCore.minecraft.events.Leave;
 import fr.redsarow.phoenixCore.minecraft.util.ModUtils;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -55,7 +56,9 @@ public class PhoenixCore implements DedicatedServerModInitializer {
 
     private void onServerStarting(MinecraftServer server) {
         this.server = server;
+        // Events
         new Join();
+        new Leave();
     }
 
     private void onServerStarted(MinecraftServer server) {
