@@ -60,14 +60,6 @@ public class PhoenixCore implements DedicatedServerModInitializer {
 
     private void onServerStarted(MinecraftServer server) {
 
-        LOGGER.info("Start Sleep ...");
-        try {
-            Thread.sleep(30000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        LOGGER.info("END Sleep");
-
         ScoreboardManager.init(server);
 
         LOGGER.info("init worldGroup conf");
