@@ -5,6 +5,7 @@ import fr.redsarow.phoenixCore.minecraft.ScoreboardManager;
 import fr.redsarow.phoenixCore.minecraft.config.ConfigManager;
 import fr.redsarow.phoenixCore.minecraft.config.configFiles.MainConf;
 import fr.redsarow.phoenixCore.minecraft.config.configFiles.WorldGroup;
+import fr.redsarow.phoenixCore.minecraft.events.Join;
 import fr.redsarow.phoenixCore.minecraft.util.ModUtils;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -54,9 +55,19 @@ public class PhoenixCore implements DedicatedServerModInitializer {
 
     private void onServerStarting(MinecraftServer server) {
         this.server = server;
+        new Join();
     }
 
     private void onServerStarted(MinecraftServer server) {
+
+        LOGGER.info("Start Sleep ...");
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        LOGGER.info("END Sleep");
+
         ScoreboardManager.init(server);
 
         LOGGER.info("init worldGroup conf");
