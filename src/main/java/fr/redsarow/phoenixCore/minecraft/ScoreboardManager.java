@@ -5,7 +5,6 @@ import net.minecraft.scoreboard.ScoreboardCriterion;
 import net.minecraft.scoreboard.ScoreboardObjective;
 import net.minecraft.scoreboard.ScoreboardPlayerScore;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
@@ -19,9 +18,9 @@ import java.util.Map;
 public class ScoreboardManager {
 
     private static ScoreboardManager INSTANCE;
+    private final MinecraftServer server;
     private ScoreboardObjective objectiveDeath;
     private ScoreboardObjective objectiveHealth;
-    private MinecraftServer server;
 
     private ScoreboardManager(MinecraftServer server) {
         this.server = server;
@@ -43,7 +42,7 @@ public class ScoreboardManager {
         if (this.server.getScoreboard().getObjective("Vie") == null) {
             TranslatableText objectiveVieName = new TranslatableText("objective.phoenix-core.vie");
             this.objectiveHealth = this.server.getScoreboard().addObjective("Vie", ScoreboardCriterion.HEALTH, objectiveVieName, ScoreboardCriterion.RenderType.HEARTS);
-            this.objectiveHealth.setDisplayName(new LiteralText(Formatting.GREEN.toString()).append(objectiveVieName));
+            this.objectiveHealth.setDisplayName(objectiveVieName.formatted(Formatting.GREEN));
             this.server.getScoreboard().setObjectiveSlot(Scoreboard.getDisplaySlotId("list"), this.objectiveHealth);
         }
 
@@ -51,7 +50,7 @@ public class ScoreboardManager {
         if (objectiveDeath == null) {
             TranslatableText objectiveMortName = new TranslatableText("objective.phoenix-core.mort");
             this.objectiveDeath = this.server.getScoreboard().addObjective("Mort", ScoreboardCriterion.DEATH_COUNT, objectiveMortName, ScoreboardCriterion.RenderType.INTEGER);
-            this.objectiveDeath.setDisplayName(new LiteralText(Formatting.RED.toString()).append(objectiveMortName));
+            this.objectiveDeath.setDisplayName(objectiveMortName.formatted(Formatting.RED));
             this.server.getScoreboard().setObjectiveSlot(Scoreboard.getDisplaySlotId("sidebar"), this.objectiveDeath);
         }
     }
