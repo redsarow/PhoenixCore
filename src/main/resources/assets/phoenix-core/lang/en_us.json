@@ -1,4 +1,5 @@
 {
   "objective.phoenix-core.mort": "Death",
-  "objective.phoenix-core.vie": "Health"
+  "objective.phoenix-core.vie": "Health",
+  "listener.onJoin": "Connect on %s in group %s"
 }
