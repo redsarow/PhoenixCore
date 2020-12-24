@@ -5,6 +5,7 @@ import fr.redsarow.phoenixCore.minecraft.ScoreboardManager;
 import fr.redsarow.phoenixCore.minecraft.WorldGroupManager;
 import fr.redsarow.phoenixCore.minecraft.config.ConfigManager;
 import fr.redsarow.phoenixCore.minecraft.config.configFiles.MainConf;
+import fr.redsarow.phoenixCore.minecraft.events.Death;
 import fr.redsarow.phoenixCore.minecraft.events.Join;
 import fr.redsarow.phoenixCore.minecraft.events.Leave;
 import fr.redsarow.phoenixCore.minecraft.util.ModUtils;
@@ -59,6 +60,7 @@ public class PhoenixCore implements DedicatedServerModInitializer {
         // Events
         new Join();
         new Leave();
+        new Death();
     }
 
     private void onServerStarted(MinecraftServer server) {

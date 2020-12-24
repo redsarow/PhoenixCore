@@ -3,10 +3,8 @@
   "minVersion": "0.8",
   "package": "fr.redsarow.phoenixCore.mixin",
   "compatibilityLevel": "JAVA_8",
-  "mixins": [
-  ],
-  "client": [
-    "ExampleMixin"
+  "server": [
+    "PlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
