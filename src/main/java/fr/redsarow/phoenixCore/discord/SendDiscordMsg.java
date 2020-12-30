@@ -11,8 +11,8 @@ public class SendDiscordMsg {
 
     private final RestChannel restChannel;
 
-    public SendDiscordMsg() {
-        this.restChannel = Bot.getInstance().getChannelOut().getRestChannel();
+    public SendDiscordMsg(Bot bot) {
+        this.restChannel = bot.getChannelOut().getRestChannel();
     }
 
     public void sendMsg(String msg) {
@@ -39,7 +39,7 @@ public class SendDiscordMsg {
         EmbedCreateSpec embed = new EmbedCreateSpec()
                 .setTitle(":warning: Joueur non connue!")
                 .setColor(Color.ORANGE)
-                .setDescription(msg + " \n Utiliser: " + Bot.getInstance().prefix + "grant " + playername);
+                .setDescription(msg + " \n Utiliser: " + Bot.getInstance().get().prefix + "grant " + playername);
         restChannel.createMessage(embed.asRequest()).block();
     }
 

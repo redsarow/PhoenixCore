@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author redsarow
@@ -59,17 +60,17 @@ public class Bot {
         new DeathCount(phoenixCore);
         new Grant();
 
-        sendMsg = new SendDiscordMsg();
+        sendMsg = new SendDiscordMsg(this);
     }
 
-    public static Bot getInstance() {
-        return INSTANCE;
+    public static Optional<Bot> getInstance() {
+        return Optional.ofNullable(INSTANCE);
     }
 
     public static Bot initBot(PhoenixCore phoenixCore) {
         LOGGER.info("Init discord bot");
         INSTANCE = new Bot(phoenixCore);
-        return getInstance();
+        return INSTANCE;
     }
 
     private void createClient(String token) {

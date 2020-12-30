@@ -16,7 +16,7 @@ public class DeathCount extends ACommand {
     private final PhoenixCore phoenixCore;
 
     public DeathCount(PhoenixCore phoenixCore) {
-        super("DeathCount", "Commande DeathCount", Bot.getInstance().prefix + "DeathCount", null, "dc");
+        super("DeathCount", "Commande DeathCount", Bot.getInstance().get().prefix + "DeathCount", null, "dc");
         this.phoenixCore = phoenixCore;
     }
 

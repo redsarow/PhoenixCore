@@ -10,7 +10,7 @@ import fr.redsarow.phoenixCore.discord.Bot;
 public class Grant extends ACommand {
 
     public Grant() {
-        super("Grant", "Commande Grant", Bot.getInstance().prefix + "grant", null, "g");
+        super("Grant", "Commande Grant", Bot.getInstance().get().prefix + "grant", null, "g");
     }
 
     @Override
@@ -21,7 +21,7 @@ public class Grant extends ACommand {
         }
         Member mbr = message.getAuthorAsMember().block();
 
-        boolean userOk = mbr.getRoles().any(iRole -> Bot.getInstance().roles.contains(iRole.getName())).block();
+        boolean userOk = mbr.getRoles().any(iRole -> Bot.getInstance().get().roles.contains(iRole.getName())).block();
         if (!userOk) {
             message.getChannel().block().createMessage(":x: Non autoriser").block();
             return true;

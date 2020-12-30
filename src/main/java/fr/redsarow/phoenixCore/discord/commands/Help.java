@@ -11,7 +11,7 @@ import fr.redsarow.phoenixCore.discord.Bot;
 public class Help extends ACommand {
 
     public Help() {
-        super("help", "Commande help", Bot.getInstance().prefix + "help [commande]", null, "h");
+        super("help", "Commande help", Bot.getInstance().get().prefix + "help [commande]", null, "h");
     }
 
     @Override
@@ -22,7 +22,7 @@ public class Help extends ACommand {
                 .setTitle(":question: Help")
                 .setColor(Color.RED);
 
-        StringBuilder desc = new StringBuilder("Prefix des commande: ").append(Bot.getInstance().prefix);
+        StringBuilder desc = new StringBuilder("Prefix des commande: ").append(Bot.getInstance().get().prefix);
 
         if (msgContent.length < 2) {
             desc.append("\nListe des commandes");

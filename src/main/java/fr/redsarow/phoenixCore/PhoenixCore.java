@@ -71,14 +71,12 @@ public class PhoenixCore implements DedicatedServerModInitializer {
         LOGGER.info("init worldGroup conf");
         WorldGroupManager.getInstance();
 
-        if (conf.discord) {
-            Bot.getInstance().serverStatus(0);
-        }
+        Bot.getInstance().ifPresent(bot -> bot.serverStatus(0));
     }
 
     private void onServerStoping(MinecraftServer server) {
         if (conf.discord) {
-            Bot.getInstance().disconnect();
+            Bot.getInstance().ifPresent(Bot::disconnect);
         }
     }
 
