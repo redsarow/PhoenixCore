@@ -4,6 +4,7 @@ import fr.redsarow.phoenixCore.PhoenixCore;
 import fr.redsarow.phoenixCore.minecraft.WorldGroupManager;
 import fr.redsarow.phoenixCore.minecraft.config.configFiles.WorldGroup;
 import fr.redsarow.phoenixCore.minecraft.util.Colors;
+import fr.redsarow.phoenixCore.minecraft.util.ModUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.scoreboard.Team;
@@ -30,7 +31,7 @@ public class Join implements ServerPlayConnectionEvents.Join {
     @Override
     public void onPlayReady(ServerPlayNetworkHandler serverPlayNetworkHandler, PacketSender packetSender, MinecraftServer minecraftServer) {
         ServerPlayerEntity player = serverPlayNetworkHandler.player;
-        String worldName = player.getServerWorld().getRegistryKey().getValue().getPath();
+        String worldName = ModUtils.getWorldName(player.getServerWorld());
         Optional<WorldGroup.Group> group = WorldGroupManager.getInstance().findGroupByWorldName(worldName);
         if (!group.isPresent()) {
             LOGGER.warn("WorldGroup.Group not found for " + worldName);

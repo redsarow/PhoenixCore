@@ -4,6 +4,7 @@ import fr.redsarow.phoenixCore.PhoenixCore;
 import fr.redsarow.phoenixCore.minecraft.WorldGroupManager;
 import fr.redsarow.phoenixCore.minecraft.config.configFiles.WorldGroup;
 import fr.redsarow.phoenixCore.minecraft.util.Colors;
+import fr.redsarow.phoenixCore.minecraft.util.ModUtils;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -23,7 +24,7 @@ public class PlayerWorldChange implements ServerEntityWorldChangeEvents.AfterPla
 
     @Override
     public void afterChangeWorld(ServerPlayerEntity player, ServerWorld origin, ServerWorld target) {
-        String worldName = target.getRegistryKey().getValue().getPath();
+        String worldName = ModUtils.getWorldName(target);
         Optional<WorldGroup.Group> worldGroup = WorldGroupManager.getInstance().findGroupByWorldName(worldName);
         if (!worldGroup.isPresent()) {
             player.sendMessage(

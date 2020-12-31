@@ -5,6 +5,7 @@ import fr.redsarow.phoenixCore.discord.Bot;
 import fr.redsarow.phoenixCore.minecraft.WorldGroupManager;
 import fr.redsarow.phoenixCore.minecraft.config.configFiles.WorldGroup;
 import fr.redsarow.phoenixCore.minecraft.events.callbacks.ServerPlayerEntityCallback;
+import fr.redsarow.phoenixCore.minecraft.util.ModUtils;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.scoreboard.ScoreboardCriterion;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -22,7 +23,7 @@ public class Death implements ServerPlayerEntityCallback.DeathListener {
 
     @Override
     public void onDeath(ServerPlayerEntity player, DamageSource source) {
-        String worldName = player.getServerWorld().getRegistryKey().getValue().getPath();
+        String worldName = ModUtils.getWorldName(player.getServerWorld());
         Optional<WorldGroup.Group> worldGroup = WorldGroupManager.getInstance().findGroupByWorldName(worldName);
         if (worldGroup.isPresent() && !worldGroup.get().deadCount) {
             PhoenixCore.getInstance().getServer()
