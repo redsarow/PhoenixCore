@@ -37,7 +37,7 @@ public class Join implements ServerPlayConnectionEvents.Join {
         }else{
             Team team = group.get().getTeamForWorld(worldName);
             if (team != null) {
-                minecraftServer.getScoreboard().addPlayerToTeam(player.getName().asString(), team);
+                minecraftServer.getScoreboard().addPlayerToTeam(player.getEntityName(), team);
             }
             player.sendMessage(
                     new LiteralText("Connecter sur")
