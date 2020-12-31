@@ -9,6 +9,8 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.scoreboard.ScoreboardCriterion;
 import net.minecraft.server.network.ServerPlayerEntity;
 
+import java.util.Optional;
+
 /**
  * @author redsarow
  */
@@ -21,8 +23,8 @@ public class Death implements ServerPlayerEntityCallback.DeathListener {
     @Override
     public void onDeath(ServerPlayerEntity player, DamageSource source) {
         String worldName = player.getServerWorld().getRegistryKey().getValue().getPath();
-        WorldGroup.Group worldGroup = WorldGroupManager.getInstance().findGroupByWorldName(worldName);
-        if (!worldGroup.deadCount) {
+        Optional<WorldGroup.Group> worldGroup = WorldGroupManager.getInstance().findGroupByWorldName(worldName);
+        if (worldGroup.isPresent() && !worldGroup.get().deadCount) {
             PhoenixCore.getInstance().getServer()
                     .getScoreboard()
                     .forEachScore(ScoreboardCriterion.DEATH_COUNT

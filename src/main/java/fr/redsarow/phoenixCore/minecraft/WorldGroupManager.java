@@ -3,6 +3,7 @@ package fr.redsarow.phoenixCore.minecraft;
 import fr.redsarow.phoenixCore.minecraft.config.ConfigManager;
 import fr.redsarow.phoenixCore.minecraft.config.configFiles.WorldGroup;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -27,13 +28,13 @@ public class WorldGroupManager {
     /**
      * @return group or null
      */
-    public WorldGroup.Group findGroupByWorldName(String worldName) {
+    public Optional<WorldGroup.Group> findGroupByWorldName(String worldName) {
         for (WorldGroup.Group group : conf.groupMap.values()) {
             if (group.worldsTeam.containsKey(worldName)) {
-                return group;
+                return Optional.of(group);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     /**

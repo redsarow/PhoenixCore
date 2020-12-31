@@ -14,6 +14,8 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.util.Util;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Optional;
+
 /**
  * @author redsarow
  */
@@ -29,11 +31,11 @@ public class Join implements ServerPlayConnectionEvents.Join {
     public void onPlayReady(ServerPlayNetworkHandler serverPlayNetworkHandler, PacketSender packetSender, MinecraftServer minecraftServer) {
         ServerPlayerEntity player = serverPlayNetworkHandler.player;
         String worldName = player.getServerWorld().getRegistryKey().getValue().getPath();
-        WorldGroup.Group group = WorldGroupManager.getInstance().findGroupByWorldName(worldName);
-        if (group == null) {
+        Optional<WorldGroup.Group> group = WorldGroupManager.getInstance().findGroupByWorldName(worldName);
+        if (!group.isPresent()) {
             LOGGER.warn("WorldGroup.Group not found for " + worldName);
         }else{
-            Team team = group.getTeamForWorld(worldName);
+            Team team = group.get().getTeamForWorld(worldName);
             if (team != null) {
                 minecraftServer.getScoreboard().addPlayerToTeam(player.getName().asString(), team);
             }
@@ -41,7 +43,7 @@ public class Join implements ServerPlayConnectionEvents.Join {
                     new LiteralText("Connecter sur")
                             .append(new LiteralText(worldName).formatted(Colors.INFO))
                             .append("du groupe")
-                            .append(new LiteralText(group.name).formatted(Colors.INFO))
+                            .append(new LiteralText(group.get().name).formatted(Colors.INFO))
                     , false
             );
         }
