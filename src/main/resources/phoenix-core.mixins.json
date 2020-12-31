@@ -4,6 +4,8 @@
   "package": "fr.redsarow.phoenixCore.mixin",
   "compatibilityLevel": "JAVA_8",
   "server": [
+    "PlayerAdvancementTrackerAccessor",
+    "PlayerAdvancementTrackerMixin",
     "PlayerMixin"
   ],
   "injectors": {
