@@ -4,6 +4,7 @@ import fr.redsarow.phoenixCore.discord.Bot;
 import fr.redsarow.phoenixCore.minecraft.ScoreboardManager;
 import fr.redsarow.phoenixCore.minecraft.WorldGroupManager;
 import fr.redsarow.phoenixCore.minecraft.config.ConfigManager;
+import fr.redsarow.phoenixCore.minecraft.config.configFiles.GrantedPlayer;
 import fr.redsarow.phoenixCore.minecraft.config.configFiles.MainConf;
 import fr.redsarow.phoenixCore.minecraft.events.*;
 import fr.redsarow.phoenixCore.minecraft.util.ModUtils;
@@ -24,6 +25,7 @@ public class PhoenixCore implements DedicatedServerModInitializer {
     private static PhoenixCore INSTANCE;
 
     public MainConf conf;
+    public GrantedPlayer grantedPlayer;
     private MinecraftServer server;
 
     public static Logger getLogger(String className) {
@@ -70,6 +72,8 @@ public class PhoenixCore implements DedicatedServerModInitializer {
         // Init conf
         LOGGER.info("init worldGroup conf");
         WorldGroupManager.getInstance();
+        LOGGER.info("init grantedPlayer conf");
+        grantedPlayer = ConfigManager.getInstance().iniConfig("grantedPlayer.json", GrantedPlayer.class);
 
         Bot.getInstance().ifPresent(bot -> bot.serverStatus(0));
     }

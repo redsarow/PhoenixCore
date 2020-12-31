@@ -62,4 +62,8 @@ public class ScoreboardManager {
                         (hashMap, playerScore) -> hashMap.put(playerScore.getPlayerName(), playerScore.getScore()),
                         HashMap::putAll);
     }
+
+    public ScoreboardObjective getObjectiveDeath() {
+        return objectiveDeath;
+    }
 }
