@@ -1,5 +1,7 @@
 {
+  "commands.error": "Une erreur est survenue contacter un administrateur",
+  "error": "Une erreur est survenue contacter un administrateur",
+  "listener.onJoin": "Connecter sur %s du groupe %s",
   "objective.phoenix-core.mort": "Mort",
-  "objective.phoenix-core.vie": "Vie",
-  "listener.onJoin": "Connecter sur %s du groupe %s"
+  "objective.phoenix-core.vie": "Vie"
 }

@@ -5,10 +5,7 @@ import fr.redsarow.phoenixCore.minecraft.ScoreboardManager;
 import fr.redsarow.phoenixCore.minecraft.WorldGroupManager;
 import fr.redsarow.phoenixCore.minecraft.config.ConfigManager;
 import fr.redsarow.phoenixCore.minecraft.config.configFiles.MainConf;
-import fr.redsarow.phoenixCore.minecraft.events.AdvancementEvents;
-import fr.redsarow.phoenixCore.minecraft.events.Death;
-import fr.redsarow.phoenixCore.minecraft.events.Join;
-import fr.redsarow.phoenixCore.minecraft.events.Leave;
+import fr.redsarow.phoenixCore.minecraft.events.*;
 import fr.redsarow.phoenixCore.minecraft.util.ModUtils;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -63,6 +60,7 @@ public class PhoenixCore implements DedicatedServerModInitializer {
         new Leave();
         new Death();
         new AdvancementEvents();
+        new PlayerWorldChange();
     }
 
     private void onServerStarted(MinecraftServer server) {

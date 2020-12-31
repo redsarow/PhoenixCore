@@ -1,5 +1,7 @@
 {
+  "commands.error": "An error has occurred contacting an administrator",
+  "error": "An error has occurred contacting an administrator",
+  "listener.onJoin": "Connect on %s in group %s",
   "objective.phoenix-core.mort": "Death",
-  "objective.phoenix-core.vie": "Health",
-  "listener.onJoin": "Connect on %s in group %s"
+  "objective.phoenix-core.vie": "Health"
 }
