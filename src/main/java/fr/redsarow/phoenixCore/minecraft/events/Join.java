@@ -7,6 +7,7 @@ import fr.redsarow.phoenixCore.minecraft.util.Colors;
 import fr.redsarow.phoenixCore.minecraft.util.ModUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.network.MessageType;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
@@ -35,7 +36,7 @@ public class Join implements ServerPlayConnectionEvents.Join {
         Optional<WorldGroup.Group> group = WorldGroupManager.getInstance().findGroupByWorldName(worldName);
         if (!group.isPresent()) {
             LOGGER.warn("WorldGroup.Group not found for " + worldName);
-        }else{
+        }else {
             Team team = group.get().getTeamForWorld(worldName);
             if (team != null) {
                 minecraftServer.getScoreboard().addPlayerToTeam(player.getEntityName(), team);
@@ -49,8 +50,11 @@ public class Join implements ServerPlayConnectionEvents.Join {
             );
         }
 
-        minecraftServer.sendSystemMessage(new LiteralText(player.getName().asString() + " login"), Util.NIL_UUID);
+        minecraftServer.getPlayerManager().broadcastChatMessage(
+                new LiteralText(player.getName().asString() + " login"),
+                MessageType.SYSTEM,
+                Util.NIL_UUID);
 
-        // TODO
+        // TODO test granted
     }
 }
