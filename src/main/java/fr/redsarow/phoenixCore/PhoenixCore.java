@@ -7,12 +7,19 @@ import fr.redsarow.phoenixCore.minecraft.config.ConfigManager;
 import fr.redsarow.phoenixCore.minecraft.config.configFiles.GrantedPlayer;
 import fr.redsarow.phoenixCore.minecraft.config.configFiles.MainConf;
 import fr.redsarow.phoenixCore.minecraft.events.*;
+import fr.redsarow.phoenixCore.minecraft.util.Colors;
 import fr.redsarow.phoenixCore.minecraft.util.ModUtils;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.minecraft.network.MessageType;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * @author redsarow
@@ -24,6 +31,7 @@ public class PhoenixCore implements DedicatedServerModInitializer {
     private static final Logger LOGGER = LogManager.getLogger(MOD_PREFIX);
     private static PhoenixCore INSTANCE;
 
+    public final HashMap<String, UUID> waitGranted = new HashMap<>();
     public MainConf conf;
     public GrantedPlayer grantedPlayer;
     private MinecraftServer server;
@@ -86,5 +94,27 @@ public class PhoenixCore implements DedicatedServerModInitializer {
 
     public MinecraftServer getServer() {
         return server;
+    }
+
+    public boolean addGrant(String sender, String newPlayer) {
+        UUID uuid = waitGranted.get(newPlayer);
+        if (uuid == null) {
+            return false;
+        }
+
+        grantedPlayer.addGranted(uuid, newPlayer);
+
+        LiteralText msg = (LiteralText) new LiteralText("Le joueur \"")
+                .append(new LiteralText(newPlayer).formatted(Colors.INFO))
+                .append("\" a été ajouté par \"")
+                .append(new LiteralText(sender).formatted(Colors.INFO))
+                .append("\"")
+                .formatted(Colors.OK);
+        server.getPlayerManager().broadcastChatMessage(msg, MessageType.SYSTEM, Util.NIL_UUID);
+
+        String discordMsg = "Le joueur \"" + newPlayer + "\" a été ajouté par \"" + sender + "\"";
+        Bot.getInstance().ifPresent(bot -> bot.sendMsg.sendNewGrantedPlayer(discordMsg));
+
+        return true;
     }
 }

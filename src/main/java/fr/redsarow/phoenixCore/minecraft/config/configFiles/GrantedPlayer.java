@@ -31,21 +31,23 @@ public class GrantedPlayer extends AConfigFile {
         return granted.contains(uuid);
     }
 
-    public void addGranted(ServerPlayerEntity player) {
-        UUID uuid = player.getUuid();
+    public void addGranted(UUID uuid, String playerName) {
         granted.add(uuid);
         ScoreboardObjective objectiveDeath = ScoreboardManager.getInstance().getObjectiveDeath();
-        PhoenixCore.getInstance().getServer().getScoreboard().updatePlayerScore(player.getEntityName(), objectiveDeath);
+        PhoenixCore.getInstance().getServer().getScoreboard().updatePlayerScore(playerName, objectiveDeath);
 
-        // PhoenixCore.waitGranted.remove(offlinePlayer.getName());
+        PhoenixCore.getInstance().waitGranted.remove(playerName);
 
-        Optional<WorldGroup.Group> worldGroup = WorldGroupManager.getInstance().findGroupByWorldName(ModUtils.getWorldName(player.getServerWorld()));
-        if (worldGroup.isPresent()) {
-            GameMode gameMode = worldGroup.get().gameMode;
-            if (gameMode != null) {
-                player.setGameMode(gameMode);
-            }else {
-                player.setGameMode(GameMode.SURVIVAL);
+        ServerPlayerEntity player = PhoenixCore.getInstance().getServer().getPlayerManager().getPlayer(uuid);
+        if (player != null) {
+            Optional<WorldGroup.Group> worldGroup = WorldGroupManager.getInstance().findGroupByWorldName(ModUtils.getWorldName(player.getServerWorld()));
+            if (worldGroup.isPresent()) {
+                GameMode gameMode = worldGroup.get().gameMode;
+                if (gameMode != null) {
+                    player.setGameMode(gameMode);
+                }else {
+                    player.setGameMode(GameMode.SURVIVAL);
+                }
             }
         }
 

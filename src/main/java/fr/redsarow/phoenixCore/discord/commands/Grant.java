@@ -2,6 +2,7 @@ package fr.redsarow.phoenixCore.discord.commands;
 
 import discord4j.core.object.entity.Member;
 import discord4j.core.object.entity.Message;
+import fr.redsarow.phoenixCore.PhoenixCore;
 import fr.redsarow.phoenixCore.discord.Bot;
 
 /**
@@ -26,8 +27,12 @@ public class Grant extends ACommand {
             message.getChannel().block().createMessage(":x: Non autoriser").block();
             return true;
         }
-        // TODO fix
-        // bot.getPlugin().addGrant(mbr.getMention(), msgContent[1]);
+
+        boolean addOk = PhoenixCore.getInstance().addGrant(mbr.getMention(), msgContent[1]);
+
+        if (!addOk) {
+            message.getChannel().block().createMessage("Le joueur \"" + msgContent[1] + "\" n'a pas été trouvé.").block();
+        }
 
         return true;
     }
