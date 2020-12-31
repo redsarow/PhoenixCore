@@ -16,7 +16,7 @@ public class SendDiscordMsg {
     }
 
     public void sendMsg(String msg) {
-        restChannel.createMessage(msg);
+        restChannel.createMessage(msg).block();
     }
 
     public void sendDeath(String msg) {
@@ -45,7 +45,7 @@ public class SendDiscordMsg {
 
     public void sendNewGrantedPlayer(String msg) {
         EmbedCreateSpec embed = new EmbedCreateSpec()
-                .setTitle(":white_check_mark:  Nouveau joueur\"")
+                .setTitle(":white_check_mark:  Nouveau joueur")
                 .setColor(Color.GREEN)
                 .setDescription(msg);
         restChannel.createMessage(embed.asRequest()).block();
