@@ -41,9 +41,9 @@ public class Join implements ServerPlayConnectionEvents.Join {
                 minecraftServer.getScoreboard().addPlayerToTeam(player.getEntityName(), team);
             }
             player.sendMessage(
-                    new LiteralText("Connecter sur")
+                    new LiteralText("Connecter sur ")
                             .append(new LiteralText(worldName).formatted(Colors.INFO))
-                            .append("du groupe")
+                            .append(" du groupe ")
                             .append(new LiteralText(group.get().name).formatted(Colors.INFO))
                     , false
             );
