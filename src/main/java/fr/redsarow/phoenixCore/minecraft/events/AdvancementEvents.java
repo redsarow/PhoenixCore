@@ -18,7 +18,7 @@ public class AdvancementEvents implements AdvancementCallback.ObtainListener {
 
     @Override
     public void onDone(PlayerAdvancementTracker playerAdvancementTracker, Advancement advancement) {
-        if (advancement.getDisplay().shouldAnnounceToChat()) {
+        if (advancement.getDisplay() != null && advancement.getDisplay().shouldAnnounceToChat()) {
             Bot.getInstance().ifPresent(bot -> bot.sendMsg.sendAdvancement(
                     new TranslatableText("chat.type.advancement." + advancement.getDisplay().getFrame().getId(),
                             ((PlayerAdvancementTrackerAccessor) playerAdvancementTracker).getOwner().getDisplayName(),
