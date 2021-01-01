@@ -32,7 +32,7 @@ public class Grant {
         if(!addOk){
             throw NAME_NOT_FOUND.create(newplayername);
         }
-        return 0;
+        return 1;
     }
 
 }
