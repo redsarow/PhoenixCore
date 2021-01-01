@@ -3,6 +3,7 @@ package fr.redsarow.phoenixCore;
 import fr.redsarow.phoenixCore.discord.Bot;
 import fr.redsarow.phoenixCore.minecraft.ScoreboardManager;
 import fr.redsarow.phoenixCore.minecraft.WorldGroupManager;
+import fr.redsarow.phoenixCore.minecraft.commands.Grant;
 import fr.redsarow.phoenixCore.minecraft.config.ConfigManager;
 import fr.redsarow.phoenixCore.minecraft.config.configFiles.GrantedPlayer;
 import fr.redsarow.phoenixCore.minecraft.config.configFiles.MainConf;
@@ -10,6 +11,7 @@ import fr.redsarow.phoenixCore.minecraft.events.*;
 import fr.redsarow.phoenixCore.minecraft.util.Colors;
 import fr.redsarow.phoenixCore.minecraft.util.ModUtils;
 import net.fabricmc.api.DedicatedServerModInitializer;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.network.MessageType;
 import net.minecraft.server.MinecraftServer;
@@ -57,6 +59,11 @@ public class PhoenixCore implements DedicatedServerModInitializer {
         ServerLifecycleEvents.SERVER_STARTING.register(this::onServerStarting);
         ServerLifecycleEvents.SERVER_STARTED.register(this::onServerStarted);
         ServerLifecycleEvents.SERVER_STOPPING.register(this::onServerStoping);
+
+        // Commandes
+        CommandRegistrationCallback.EVENT.register((commandDispatcher, dedicated) -> {
+            Grant.register(commandDispatcher);
+        });
 
         if (conf.discord) {
             Bot.initBot(this);
