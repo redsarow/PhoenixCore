@@ -112,8 +112,8 @@ public class PhoenixCore implements DedicatedServerModInitializer {
                 .formatted(Colors.OK);
         server.getPlayerManager().broadcastChatMessage(msg, MessageType.SYSTEM, Util.NIL_UUID);
 
-        String discordMsg = "Le joueur \"" + newPlayer + "\" a été ajouté par \"" + sender + "\"";
-        Bot.getInstance().ifPresent(bot -> bot.sendMsg.sendNewGrantedPlayer(discordMsg));
+        Bot.getInstance().ifPresent(bot -> bot.sendMsg
+                .sendNewGrantedPlayer("Le joueur \"" + newPlayer + "\" a été ajouté par \"" + sender + "\""));
 
         return true;
     }
