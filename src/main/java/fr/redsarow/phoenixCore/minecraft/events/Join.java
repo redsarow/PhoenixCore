@@ -65,7 +65,7 @@ public class Join implements ServerPlayConnectionEvents.Join {
 
         // new player
         UUID playerUuid = player.getUuid();
-        if (PhoenixCore.getInstance().grantedPlayer.isGranted(playerUuid)) {
+        if (!PhoenixCore.getInstance().grantedPlayer.isGranted(playerUuid)) {
             player.setGameMode(GameMode.SPECTATOR);
             PhoenixCore.getInstance().waitGranted.put(playerName, playerUuid);
 
