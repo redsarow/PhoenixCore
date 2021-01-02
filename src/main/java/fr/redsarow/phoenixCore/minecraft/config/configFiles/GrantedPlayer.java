@@ -35,7 +35,7 @@ public class GrantedPlayer extends AConfigFile {
     public void addGranted(UUID uuid, String playerName) {
         granted.add(uuid);
         ScoreboardObjective objectiveDeath = ScoreboardManager.getInstance().getObjectiveDeath();
-        PhoenixCore.getInstance().getServer().getScoreboard().updatePlayerScore(playerName, objectiveDeath);
+        PhoenixCore.getInstance().getServer().getScoreboard().getPlayerScore(playerName, objectiveDeath).clearScore();
 
         PhoenixCore.getInstance().waitGranted.remove(playerName);
 
