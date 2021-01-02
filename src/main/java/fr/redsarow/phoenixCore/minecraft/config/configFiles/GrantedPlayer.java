@@ -11,6 +11,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.GameMode;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,7 +22,7 @@ import java.util.UUID;
 public class GrantedPlayer extends AConfigFile {
 
     @Expose
-    public List<UUID> granted;
+    public List<UUID> granted = new ArrayList<>();
 
     public GrantedPlayer(File file) {
         super(file, 1.0);
